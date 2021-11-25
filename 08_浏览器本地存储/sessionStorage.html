@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sessionStorage</title>
+</head>
+<body>
+  <!-- sessionStorage浏览器关闭，存储的数据被清空 -->
+
+  <h2>sessionStorage</h2>
+  <button onclick="saveData()">点我保存一个数据</button>
+  <button onclick="readData()">点我读取一个数据</button>
+  <button onclick="deleteData()">点我删除一个数据</button>
+  <button onclick="deleteAllData()">点我清空数据</button>
+
+  <script>
+    let p = {name: '张三' , age: 18};
+
+    function saveData() {
+      // setItem方法两个参数都是字符串，如果不是字符串会默认调用toString方法转为字符串
+      window.sessionStorage.setItem('msg' , 'hello!');
+      // 调用window的方法，window可以省略，第一个字符串是key，key相同则覆盖原来数据的值
+      sessionStorage.setItem('msg2' , 666);
+      // sessionStorage.setItem('person' , p);    // 相当于p.toString()，得到[object Object]
+      sessionStorage.setItem('person' , JSON.stringify(p));
+    }
+    function readData() {
+      // 读取没有的数据返回值为null，JSON.parse(null)也返回null
+
+      console.log(sessionStorage.getItem('msg'));
+      console.log(sessionStorage.getItem('msg2'));
+      const result = sessionStorage.getItem('person');
+      console.log(JSON.parse(result));
+    }
+    function deleteData() {
+      sessionStorage.removeItem('msg2');
+    }
+    function deleteAllData() {
+      sessionStorage.clear();
+    }
+  </script>
+</body>
+</html>
